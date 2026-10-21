@@ -220,17 +220,6 @@
     <div id="recipeList"></div>
   </section>
 
-  <!-- ===================== SHOPPING ===================== -->
-  <section id="shopping">
-    <div class="sec-head">
-      <p class="eyebrow">Before the day</p>
-      <h2>Shopping List</h2>
-      <span class="count" id="shopCount">sized for ~8 guests · half classic / half 0%</span>
-    </div>
-    <div class="toolbar"><button class="btn" id="resetChk">Reset ticks</button></div>
-    <div class="shop-grid" id="shopGrid" style="margin-top:10px"></div>
-  </section>
-
   <footer>
     <span class="tag">Cheers, Team Giraffe! 🦒🥂</span>
     Every drink has an alcohol-free version — mix, sip, enjoy.
@@ -307,80 +296,6 @@ const RECIPES = [
     freeM:"Build the same way — honestly brilliant with just lime & a good spicy ginger beer." },
 ];
 
-/* Shopping list — sized ~8 guests, half classic / half 0% */
-const SHOP = [
-  { cat:"Fizz (the welcome)", ic:"🍾", sub:"For arrival toasts", items:[
-    {t:"Prosecco", q:"2 bottles"},
-    {t:"Alcohol-free sparkling (Nozeco / Freixenet 0%)", q:"2 bottles", af:true},
-  ]},
-  { cat:"Spirits", ic:"🥃", sub:"Menu needs one of each — buy small (35–50cl) for 8", items:[
-    {t:"Vodka", q:"50cl"},
-    {t:"Vanilla vodka (Pornstar)", q:"35cl or small"},
-    {t:"White rum", q:"35–50cl"},
-    {t:"Gin", q:"35–50cl"},
-    {t:"Tequila (blanco)", q:"35–50cl"},
-    {t:"Bourbon / rye whiskey", q:"35cl"},
-    {t:"Campari", q:"small"},
-    {t:"Sweet (red) vermouth", q:"small"},
-    {t:"Triple sec / Cointreau", q:"small"},
-    {t:"Peach schnapps", q:"small"},
-    {t:"Passionfruit liqueur (Passoã)", q:"small"},
-    {t:"Elderflower liqueur or cordial", q:"1"},
-    {t:"Angostura bitters", q:"1 small"},
-  ]},
-  { cat:"Alcohol-free spirits", ic:"🌱", sub:"Half the crowd — get a proper 0% range", af:true, items:[
-    {t:"0% gin (e.g. Tanqueray 0.0 / Seedlip)", q:"1", af:true},
-    {t:"0% white rum / spiced alt", q:"1", af:true},
-    {t:"0% whiskey alternative", q:"1 (optional)", af:true},
-    {t:"Non-alc bitter aperitif (Crodino / Martini Vibrante)", q:"1", af:true},
-    {t:"0% sweet vermouth (Martini Vibrante)", q:"1", af:true},
-    {t:"Alcohol-free bitters (optional)", q:"1", af:true},
-  ]},
-  { cat:"Mixers & fizz", ic:"🫧", sub:"Keep cold", items:[
-    {t:"Soda water", q:"3 bottles"},
-    {t:"Ginger beer (spicy)", q:"4 bottles / 8 cans"},
-    {t:"Cola", q:"1 bottle"},
-    {t:"Lemonade", q:"2 bottles"},
-    {t:"Ginger ale", q:"1 bottle"},
-    {t:"Tonic water", q:"1 bottle"},
-  ]},
-  { cat:"Juices & purées", ic:"🧃", sub:"Chilled", items:[
-    {t:"Orange juice", q:"1.5L"},
-    {t:"Cranberry juice", q:"1.5L"},
-    {t:"Pineapple juice", q:"1L"},
-    {t:"Passionfruit purée (or 5 fresh passionfruit)", q:"1 tub"},
-    {t:"Peach nectar / syrup (for 0% SOTB)", q:"1", af:true},
-    {t:"Grenadine", q:"1 bottle"},
-    {t:"Cold black tea (for 0% Long Island)", q:"brew a jug", af:true},
-  ]},
-  { cat:"Fresh & garnish", ic:"🍋", sub:"Prep the day of", items:[
-    {t:"Limes", q:"10"},
-    {t:"Lemons", q:"5"},
-    {t:"Oranges", q:"3"},
-    {t:"Fresh mint", q:"2 big bunches"},
-    {t:"Passionfruit (to float)", q:"4"},
-    {t:"Maraschino cherries", q:"1 jar"},
-    {t:"Berries (raspberries for fizz)", q:"1 punnet"},
-  ]},
-  { cat:"Store cupboard", ic:"🧁", sub:"Sweet & sour kit", items:[
-    {t:"Caster sugar (for sugar syrup)", q:"1 bag"},
-    {t:"Agave syrup", q:"1"},
-    {t:"Vanilla syrup (or vanilla + sugar)", q:"1"},
-    {t:"Aquafaba (tin of chickpeas) or egg whites", q:"1"},
-  ]},
-  { cat:"Kit & extras", ic:"🧊", sub:"Don't forget!", items:[
-    {t:"ICE — bags of cubes", q:"~8kg (1kg pp)"},
-    {t:"Cocktail shaker (or a big jam jar)", q:"1–2"},
-    {t:"Jigger / 25ml measure", q:"1"},
-    {t:"Muddler (or wooden spoon)", q:"1"},
-    {t:"Strainer", q:"1"},
-    {t:"Big jugs for batching", q:"2–3"},
-    {t:"Glasses: highball, rocks, flute, coupe", q:"check numbers"},
-    {t:"Cocktail sticks + paper straws", q:"1 pack each"},
-    {t:"Napkins + a 0% bottles sign", q:"✎"},
-  ]},
-];
-
 /* ---------------- RENDER ---------------- */
 const menuGrid = document.getElementById('menuGrid');
 menuGrid.innerHTML = RECIPES.map(r => `
@@ -413,43 +328,6 @@ recipeList.innerHTML = RECIPES.map(r => `
       </div>
     </div>
   </article>`).join('');
-
-/* Shopping list with persisted ticks */
-let checked = {};
-try { checked = JSON.parse(localStorage.getItem('party-checks') || '{}'); } catch(e) {}
-const saveChecks = () => { try { localStorage.setItem('party-checks', JSON.stringify(checked)); } catch(e) {} };
-
-const shopGrid = document.getElementById('shopGrid');
-function renderShop() {
-  shopGrid.innerHTML = SHOP.map((c, ci) => `
-    <div class="shop-cat">
-      <h3>${c.ic} ${c.cat}</h3>
-      <div class="sub">${c.sub}</div>
-      <ul>
-        ${c.items.map((it, ii) => {
-          const key = ci+'-'+ii; const on = checked[key];
-          return `<li class="${on?'done':''}" data-key="${key}">
-            <span class="chk ${on?'on':''}" role="checkbox" aria-checked="${on?'true':'false'}" tabindex="0"></span>
-            <span class="txt">${it.t} ${it.q?`<span class="qty">— ${it.q}</span>`:''} ${it.af?'<span class="afnote">· 0%</span>':''}</span>
-          </li>`;
-        }).join('')}
-      </ul>
-    </div>`).join('');
-}
-renderShop();
-
-shopGrid.addEventListener('click', e => {
-  const li = e.target.closest('li[data-key]'); if (!li) return;
-  const key = li.dataset.key; checked[key] = !checked[key]; saveChecks(); renderShop();
-});
-shopGrid.addEventListener('keydown', e => {
-  if (e.key !== 'Enter' && e.key !== ' ') return;
-  const chk = e.target.closest('.chk'); if (!chk) return;
-  e.preventDefault();
-  const li = chk.closest('li[data-key]'); const key = li.dataset.key;
-  checked[key] = !checked[key]; saveChecks(); renderShop();
-});
-document.getElementById('resetChk').addEventListener('click', () => { checked = {}; saveChecks(); renderShop(); });
 </script>
 </body>
 </html>
