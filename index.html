@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>House Cocktail Night</title>
-<meta name="description" content="Cocktail party guide: ten cocktails, each with an alcohol-free version, plus a shopping list and host notes.">
+<title>Giraffe Cocktail Night</title>
+<meta name="description" content="Team Giraffe cocktail night: ten cocktails, each with an alcohol-free version, plus the menu and shopping list.">
 <style>
   /* Layout: a single centered column — flyer hero, menu grid, paired recipe cards, shopping checklist, host notes — on a warm midnight ground with a citrus-amber accent and blush support. */
   :root {
@@ -18,9 +18,10 @@
     --gold: #a8812f;
     --blush: #c0405f;       /* for AF marks / highlights */
     --green: #3f6f4e;
-    --band: #241b2e;        /* deep plum hero */
+    --band: #2a2016;        /* warm savanna-brown hero */
     --band-ink: #f7efe4;
-    --band-muted: #c4b4c7;
+    --band-muted: #d8c3a6;
+    --spot: #8a5a2b;        /* giraffe patch chestnut */
     --chip: #f4ece2;
     --shadow: 0 1px 2px rgba(34,26,36,.06), 0 8px 24px rgba(34,26,36,.07);
     --font-display: "Fraunces", Georgia, "Times New Roman", serif;
@@ -39,9 +40,10 @@
       --gold: #d8b05a;
       --blush: #e76c86;
       --green: #7bb089;
-      --band: #0f0b14;
+      --band: #15100a;
       --band-ink: #f7efe4;
-      --band-muted: #b2a3b6;
+      --band-muted: #cdb79a;
+      --spot: #9c6b36;
       --chip: #2b2232;
       --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.4);
       color-scheme: dark;
@@ -58,9 +60,10 @@
     --gold: #d8b05a;
     --blush: #e76c86;
     --green: #7bb089;
-    --band: #0f0b14;
+    --band: #15100a;
     --band-ink: #f7efe4;
-    --band-muted: #b2a3b6;
+    --band-muted: #cdb79a;
+    --spot: #9c6b36;
     --chip: #2b2232;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.4);
     color-scheme: dark;
@@ -82,7 +85,11 @@
   .hero-inner { padding: 38px 28px 32px; text-align: center; position: relative; z-index: 2; }
   .hero::before { content: ""; position: absolute; inset: 0; background:
       radial-gradient(60% 50% at 20% 0%, rgba(230,138,78,.22), transparent 60%),
-      radial-gradient(50% 50% at 90% 100%, rgba(192,64,95,.20), transparent 60%); z-index: 1; }
+      radial-gradient(50% 50% at 90% 100%, rgba(216,176,90,.18), transparent 60%); z-index: 1; }
+  /* giraffe-patch texture */
+  .hero::after { content: ""; position: absolute; inset: 0; z-index: 1; opacity: .16; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='150'%20height='150'%20viewBox='0%200%20150%20150'%3E%3Cg%20fill='%238a5a2b'%3E%3Cpolygon%20points='14,8%2056,2%2070,36%2038,62%204,44'/%3E%3Cpolygon%20points='84,6%20140,18%20132,56%2088,52'/%3E%3Cpolygon%20points='20,74%2062,80%2056,126%2014,132%202,98'/%3E%3Cpolygon%20points='86,70%20132,76%20144,116%2094,132%2076,102'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 150px 150px; }
   .hero .eyebrow { color: var(--gold); }
   .hero h1 { font-size: clamp(2.6rem, 9vw, 4.2rem); margin: 8px 0 4px; letter-spacing: -.01em; }
   .hero .glass { font-size: 2.4rem; line-height: 1; margin-bottom: 6px; }
@@ -180,9 +187,9 @@
   <!-- ===================== FLYER / HERO ===================== -->
   <div class="hero" id="top">
     <div class="hero-inner">
-      <div class="glass">🍸</div>
-      <p class="eyebrow">You're invited</p>
-      <h1>Cocktail Night</h1>
+      <div class="glass">🦒🍸</div>
+      <p class="eyebrow">Team Giraffe · You're invited</p>
+      <h1>Giraffe Cocktail Night</h1>
       <p class="tag">ten cocktails · every one, two ways</p>
       <div class="deets">
         <span class="pill">📅 <b>Wed 28 Oct</b></span>
@@ -225,7 +232,7 @@
   </section>
 
   <footer>
-    <span class="tag">Cheers! 🥂</span>
+    <span class="tag">Cheers, Team Giraffe! 🦒🥂</span>
     Every drink has an alcohol-free version — mix, sip, enjoy.
   </footer>
 </div>
