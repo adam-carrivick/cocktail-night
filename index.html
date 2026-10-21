@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>House Cocktail Night</title>
+<meta name="description" content="Cocktail party guide: ten cocktails, each with an alcohol-free version, plus a shopping list and host notes.">
+<style>
+  /* Layout: a single centered column — flyer hero, menu grid, paired recipe cards, shopping checklist, host notes — on a warm midnight ground with a citrus-amber accent and blush support. */
+  :root {
+    --bg: #faf6f0;
+    --surface: #ffffff;
+    --ink: #221a24;
+    --muted: #6d6270;
+    --line: #e7ddd2;
+    --accent: #c8612b;      /* burnt citrus */
+    --accent-soft: #f3d9bf;
+    --gold: #a8812f;
+    --blush: #c0405f;       /* for AF marks / highlights */
+    --green: #3f6f4e;
+    --band: #241b2e;        /* deep plum hero */
+    --band-ink: #f7efe4;
+    --band-muted: #c4b4c7;
+    --chip: #f4ece2;
+    --shadow: 0 1px 2px rgba(34,26,36,.06), 0 8px 24px rgba(34,26,36,.07);
+    --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-script: "Caveat", "Comic Sans MS", cursive;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17121c;
+      --surface: #211925;
+      --ink: #f3ece4;
+      --muted: #aa9fac;
+      --line: #352b3d;
+      --accent: #e68a4e;
+      --accent-soft: #3a2a24;
+      --gold: #d8b05a;
+      --blush: #e76c86;
+      --green: #7bb089;
+      --band: #0f0b14;
+      --band-ink: #f7efe4;
+      --band-muted: #b2a3b6;
+      --chip: #2b2232;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.4);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17121c;
+    --surface: #211925;
+    --ink: #f3ece4;
+    --muted: #aa9fac;
+    --line: #352b3d;
+    --accent: #e68a4e;
+    --accent-soft: #3a2a24;
+    --gold: #d8b05a;
+    --blush: #e76c86;
+    --green: #7bb089;
+    --band: #0f0b14;
+    --band-ink: #f7efe4;
+    --band-muted: #b2a3b6;
+    --chip: #2b2232;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.4);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .wrap { max-width: 860px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; line-height: 1.1; margin: 0; }
+  p { margin: 0; }
+  .eyebrow { font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; color: var(--gold); }
+
+  /* ---------- HERO / FLYER ---------- */
+  .hero { background: var(--band); color: var(--band-ink); border-radius: 22px; margin-top: 18px; padding: 0; overflow: hidden; box-shadow: var(--shadow); position: relative; }
+  .hero-inner { padding: 38px 28px 32px; text-align: center; position: relative; z-index: 2; }
+  .hero::before { content: ""; position: absolute; inset: 0; background:
+      radial-gradient(60% 50% at 20% 0%, rgba(230,138,78,.22), transparent 60%),
+      radial-gradient(50% 50% at 90% 100%, rgba(192,64,95,.20), transparent 60%); z-index: 1; }
+  .hero .eyebrow { color: var(--gold); }
+  .hero h1 { font-size: clamp(2.6rem, 9vw, 4.2rem); margin: 8px 0 4px; letter-spacing: -.01em; }
+  .hero .glass { font-size: 2.4rem; line-height: 1; margin-bottom: 6px; }
+  .hero .tag { font-family: var(--font-script); font-size: 1.7rem; color: var(--gold); }
+  .hero .deets { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .hero .deets .pill { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); color: var(--band-ink); padding: 8px 14px; border-radius: 999px; font-size: .9rem; }
+  .hero .deets .pill b { color: var(--gold); font-weight: 600; }
+  .hero .welcome { margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.14); font-size: .98rem; color: var(--band-muted); }
+  .hero .welcome b { color: var(--band-ink); }
+
+  /* ---------- SECTION ---------- */
+  section { margin-top: 42px; }
+  .sec-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+  .sec-head h2 { font-size: clamp(1.5rem, 4.5vw, 2rem); }
+  .sec-head .count { color: var(--muted); font-size: .9rem; }
+
+  /* ---------- MENU GRID ---------- */
+  .menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (max-width: 560px) { .menu { grid-template-columns: 1fr; } }
+  .menu a { text-decoration: none; color: inherit; }
+  .menu-item { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; height: 100%; transition: border-color .15s, transform .15s; }
+  .menu-item:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .menu-item .ic { font-size: 1.5rem; line-height: 1.2; }
+  .menu-item .nm { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; }
+  .menu-item .ds { font-size: .82rem; color: var(--muted); }
+  .af { display: inline-block; font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; color: var(--green); border: 1px solid var(--green); border-radius: 999px; padding: 1px 7px; margin-top: 6px; }
+
+  /* ---------- RECIPE CARDS ---------- */
+  .recipe { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px; margin-bottom: 16px; box-shadow: var(--shadow); scroll-margin-top: 20px; }
+  .recipe-top { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+  .recipe-top .ic { font-size: 1.8rem; }
+  .recipe h3 { font-size: 1.35rem; }
+  .recipe .glassline { font-size: .78rem; color: var(--gold); letter-spacing: .06em; text-transform: uppercase; font-weight: 600; margin-bottom: 14px; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 560px) { .cols { grid-template-columns: 1fr; gap: 0; } }
+  .col { min-width: 0; }
+  .col + .col { padding-top: 0; }
+  @media (max-width: 560px) { .col + .col { border-top: 1px dashed var(--line); margin-top: 14px; padding-top: 14px; } }
+  .col-head { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+  .col-head.booze { color: var(--accent); }
+  .col-head.free { color: var(--green); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .dot.booze { background: var(--accent); }
+  .dot.free { background: var(--green); }
+  ul.ing { list-style: none; padding: 0; margin: 0 0 10px; }
+  ul.ing li { font-size: .9rem; padding: 3px 0 3px 16px; position: relative; }
+  ul.ing li::before { content: "•"; position: absolute; left: 2px; color: var(--muted); }
+  .method { font-size: .86rem; color: var(--muted); }
+  .method b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- SHOPPING LIST ---------- */
+  .shop-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 640px) { .shop-grid { grid-template-columns: 1fr; } }
+  .shop-cat { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; box-shadow: var(--shadow); }
+  .shop-cat h3 { font-size: 1.05rem; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+  .shop-cat .sub { font-size: .76rem; color: var(--muted); margin-bottom: 12px; }
+  .shop-cat ul { list-style: none; padding: 0; margin: 0; }
+  .shop-cat li { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; border-top: 1px solid var(--line); font-size: .9rem; }
+  .shop-cat li:first-child { border-top: none; }
+  .chk { flex: 0 0 auto; width: 17px; height: 17px; border: 1.5px solid var(--muted); border-radius: 5px; margin-top: 3px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+  .chk.on { background: var(--green); border-color: var(--green); }
+  .chk.on::after { content: "✓"; color: #fff; font-size: .72rem; font-weight: 700; }
+  li.done .txt { text-decoration: line-through; color: var(--muted); }
+  .txt { min-width: 0; }
+  .qty { color: var(--gold); font-weight: 600; }
+  .afnote { color: var(--green); font-size: .82rem; }
+
+  /* ---------- NOTES ---------- */
+  .notes { background: var(--chip); border: 1px solid var(--line); border-radius: 16px; padding: 22px 24px; }
+  .notes ul { padding-left: 1.1em; margin: 0; }
+  .notes li { margin: 7px 0; font-size: .92rem; }
+  .notes li b { color: var(--accent); }
+  .glossary { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px 20px; margin-top: 12px; }
+  @media (max-width: 560px) { .glossary { grid-template-columns: 1fr; } }
+  .glossary div { font-size: .85rem; }
+  .glossary b { font-family: var(--font-display); }
+
+  footer { text-align: center; color: var(--muted); font-size: .82rem; margin: 44px 0 20px; }
+  footer .tag { font-family: var(--font-script); font-size: 1.4rem; color: var(--accent); display: block; }
+
+  .toolbar { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+  .btn { background: var(--surface); border: 1px solid var(--line); color: var(--muted); border-radius: 999px; padding: 6px 14px; font-size: .78rem; cursor: pointer; font-family: var(--font-body); }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=Caveat:wght@600&display=swap">
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ===================== FLYER / HERO ===================== -->
+  <div class="hero" id="top">
+    <div class="hero-inner">
+      <div class="glass">🍸</div>
+      <p class="eyebrow">You're invited</p>
+      <h1>Cocktail Night</h1>
+      <p class="tag">ten cocktails · every one, two ways</p>
+      <div class="deets">
+        <span class="pill">📅 <b>Wed 28 Oct</b></span>
+        <span class="pill">⏰ <b>From</b> &nbsp;5pm 'til late</span>
+        <span class="pill">📍 <b>At</b> &nbsp;_______</span>
+      </div>
+      <p class="welcome">Arrive to a glass of <b>Prosecco</b> (or <b>alcohol-free fizz</b>) — then work your way through the menu. <b>Every drink has a 0% twin</b>, so everyone's covered.</p>
+    </div>
+  </div>
+
+  <!-- ===================== MENU ===================== -->
+  <section id="menu">
+    <div class="sec-head">
+      <p class="eyebrow">The list</p>
+      <h2>The Menu</h2>
+      <span class="count">tap a drink for the recipe</span>
+    </div>
+    <div class="menu" id="menuGrid"></div>
+  </section>
+
+  <!-- ===================== RECIPES ===================== -->
+  <section id="recipes">
+    <div class="sec-head">
+      <p class="eyebrow">How to make them</p>
+      <h2>Recipes</h2>
+      <span class="count">single serve · <span style="color:var(--accent)">●</span> classic &nbsp; <span style="color:var(--green)">●</span> alcohol-free</span>
+    </div>
+    <div id="recipeList"></div>
+  </section>
+
+  <!-- ===================== SHOPPING ===================== -->
+  <section id="shopping">
+    <div class="sec-head">
+      <p class="eyebrow">Before the day</p>
+      <h2>Shopping List</h2>
+      <span class="count" id="shopCount">sized for ~8 guests · half classic / half 0%</span>
+    </div>
+    <div class="toolbar"><button class="btn" id="resetChk">Reset ticks</button></div>
+    <div class="shop-grid" id="shopGrid" style="margin-top:10px"></div>
+  </section>
+
+  <!-- ===================== HOST NOTES ===================== -->
+  <section id="notes">
+    <div class="sec-head">
+      <p class="eyebrow">Make it easy on yourself</p>
+      <h2>Host Notes</h2>
+    </div>
+    <div class="notes">
+      <ul>
+        <li><b>Your batch-vs-fresh plan.</b> <u>Batch in jugs ahead:</u> Sex on the Beach, Long Island, Moscow Mule, Shirley Temple (and their 0% versions). <u>Make to order for the wow:</u> Pornstar Martini, Old Fashioned, Negroni, Tequila Sour. Mojito & Hugo are quick either way. Jugs = no fizz/ice until you pour.</li>
+        <li><b>Ice is the thing people forget.</b> Budget roughly <b>1kg per person</b>. Buy bags the day before and keep them in a cool box or a clean bin bag in the coldest spot. You'll always want more than you think.</li>
+        <li><b>Set up a station.</b> One tray of spirits, one of mixers, one of garnishes, a jug of water, and a bin. Put the 0% bottles together with their own little sign so no one grabs the wrong thing.</li>
+        <li><b>Prep garnishes early.</b> Slice limes, lemons and oranges into wheels/wedges, pick the mint, skewer the cherries — cover and chill. Mint bruises, so pick it last.</li>
+        <li><b>Chill everything.</b> Prosecco, ginger beer, tonic, juices and glasses all go cold hours ahead. Warm fizz is sad fizz.</li>
+        <li><b>Keep it safe & kind.</b> Have plenty of water and soft drinks out, offer food, and never make the 0% option feel like an afterthought — it's half the menu here.</li>
+      </ul>
+      <p class="eyebrow" style="margin-top:20px">Bar shorthand</p>
+      <div class="glossary">
+        <div><b>Muddle</b> — press fruit/herbs with a spoon or muddler to release flavour.</div>
+        <div><b>Build</b> — pour straight into the serving glass over ice, no shaking.</div>
+        <div><b>Shake</b> — shake hard with ice 10–15s, then strain. (A jam jar works!)</div>
+        <div><b>Top up</b> — fill the rest of the glass with the fizzy mixer.</div>
+        <div><b>Single (25ml)</b> — a standard shot. A double is 50ml.</div>
+        <div><b>Sugar syrup</b> — dissolve 2 parts sugar in 1 part hot water; cool. Easy to make a jar.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MAKE IT MEMORABLE ===================== -->
+  <section id="memorable">
+    <div class="sec-head">
+      <p class="eyebrow">The extra 10%</p>
+      <h2>Make It Memorable</h2>
+    </div>
+    <div class="notes">
+      <ul>
+        <li><b>A proper menu moment.</b> Prop up a chalkboard or a printed menu (screenshot this guide!) so guests can browse and choose — half the fun is deciding. Add a cheeky line: "every drink, two ways."</li>
+        <li><b>Name the night's signature.</b> Pick one drink as the house special (the Pornstar Martini is a showstopper with the fizz-shot ritual) and make a bit of theatre of it — pour the Prosecco shot for guests at the table.</li>
+        <li><b>Garnish like you mean it.</b> This is where cheap drinks look expensive: mint sprigs, orange twists expressed over the glass, a dehydrated citrus wheel, cherries on sticks, a passionfruit half floating on top. Keep a garnish tray stocked.</li>
+        <li><b>Glassware = atmosphere.</b> Copper mugs for the Mule, coupes for the Pornstar, a big balloon glass for the Hugo. Doesn't need to match — mismatched vintage glasses look great.</li>
+        <li><b>Lighting & sound.</b> Dim the big lights, bring on lamps/candles/fairy lights, and have a playlist ready before 5pm so it never goes quiet. A little low-light goes a long way.</li>
+        <li><b>A clink-worthy welcome.</b> Hand everyone a fizz the second they arrive — nobody stands around empty-handed. It sets the tone instantly.</li>
+        <li><b>Make the 0% feel special, not second-best.</b> Same glass, same garnish, same flourish. Give them fun names on the menu (Nojito, Virgin Mule) so they're a choice, not a consolation.</li>
+        <li><b>A photo corner + a little drama.</b> A simple backdrop or a neon-ish sign makes photos. Want a wow? A sphere/large clear ice cube in the Old Fashioned & Negroni, or a sprig of smoking rosemary, gets gasps.</li>
+        <li><b>Tiny touches:</b> drink tags or chalk pens to label glasses (so nobody loses theirs), a signature paper straw, a bowl of citrus on the bar just for looks, and a "last orders" fizz toast to close the night.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <span class="tag">Cheers! 🥂</span>
+    Every drink has an alcohol-free version — mix, sip, enjoy.
+  </footer>
+</div>
+
+<script>
+/* ---------------- DATA ---------------- */
+const RECIPES = [
+  { id:"prosecco", ic:"🥂", name:"Prosecco & 0% Fizz", glass:"Flute, chilled", af:true,
+    booze:["Chilled Prosecco","Optional: splash of elderflower cordial or a few berries"],
+    boozeM:"<b>Pour</b> cold into a flute. Drop in a raspberry for colour. That's it — the welcome drink.",
+    free:["Chilled alcohol-free sparkling (e.g. Nozeco / Freixenet 0%)","Same berry or elderflower splash"],
+    freeM:"<b>Pour</b> cold into a flute. Looks identical in the glass — nobody feels left out." },
+
+  { id:"mojito", ic:"🌿", name:"Mojito", glass:"Highball, cubed ice", af:true,
+    booze:["50ml white rum","25ml lime juice (½ lime)","2 tsp sugar / sugar syrup","6–8 mint leaves","Soda water"],
+    boozeM:"<b>Muddle</b> mint, lime & sugar in the glass. Fill with ice, add rum, <b>top up</b> with soda, stir. Mint sprig on top.",
+    free:["50ml 0% white rum (or skip)","25ml lime juice","2 tsp sugar / syrup","6–8 mint leaves","Soda water"],
+    freeM:"Exactly the same build — a 'Nojito'. Even without 0% rum it's a brilliant drink on its own." },
+
+  { id:"pornstar", ic:"🍾", name:"Pornstar Martini", glass:"Martini / coupe + fizz shot", af:true,
+    booze:["50ml vanilla vodka","25ml passionfruit liqueur (Passoã)","25ml passionfruit purée / ½ fresh passionfruit","15ml lime juice","10ml vanilla sugar syrup","Side shot of Prosecco"],
+    boozeM:"<b>Shake</b> everything (not the fizz) hard with ice, strain into a coupe. Float ½ passionfruit on top. Serve the <b>Prosecco shot on the side</b>.",
+    free:["25ml passionfruit purée","15ml lime juice","15ml vanilla syrup","75ml pineapple or orange juice","Side shot of 0% fizz"],
+    freeM:"<b>Shake</b> with ice, strain into a coupe, float ½ passionfruit. 0% fizz shot alongside." },
+
+  { id:"oldfashioned", ic:"🥃", name:"Old Fashioned", glass:"Rocks, one big cube", af:true,
+    booze:["60ml bourbon / rye whiskey","1 tsp sugar syrup","2–3 dashes Angostura bitters","Orange peel"],
+    boozeM:"<b>Stir</b> whiskey, syrup & bitters with ice ~30s until cold. Strain over one big cube. Twist orange peel over the top, drop it in.",
+    free:["60ml 0% whiskey alternative","1 tsp sugar syrup","2–3 dashes bitters (or 0% bitters)","Orange peel"],
+    freeM:"Same <b>stir & strain</b>. Note: Angostura is ~44% but the few dashes are tiny — use alcohol-free bitters for a truly 0% drink." },
+
+  { id:"sotb", ic:"🍑", name:"Sex on the Beach", glass:"Highball, cubed ice", af:true,
+    booze:["40ml vodka","20ml peach schnapps","40ml orange juice","40ml cranberry juice","Orange slice + cherry"],
+    boozeM:"<b>Build</b> over ice: vodka, schnapps, then the juices. Stir. Garnish with orange & a cherry. (Great as a big jug.)",
+    free:["20ml peach syrup / nectar","60ml orange juice","60ml cranberry juice","Splash of soda","Orange slice + cherry"],
+    freeM:"<b>Build</b> over ice and stir. The peach + cran + orange combo carries it completely." },
+
+  { id:"lit", ic:"🥤", name:"Long Island Iced Tea", glass:"Highball / tall, cubed ice", af:true,
+    booze:["15ml vodka","15ml gin","15ml white rum","15ml tequila","15ml triple sec","25ml lemon juice","15ml sugar syrup","Cola to top"],
+    boozeM:"<b>Build</b> all spirits + lemon + syrup over ice, <b>top up</b> with a splash of cola until it looks like iced tea. Lemon wedge. (Strong — go steady!)",
+    free:["20ml each: 0% gin, 0% rum, 0% spirit (or skip)","25ml lemon juice","15ml sugar syrup","Cold black tea + cola to top","Lemon wedge"],
+    freeM:"<b>Build</b> with the 0% spirits (or just lemon + syrup), top with cold tea & a little cola. Same iced-tea look, 0% kick." },
+
+  { id:"tequilasour", ic:"🍋", name:"Tequila Sour", glass:"Rocks / coupe", af:true,
+    booze:["50ml tequila","25ml lime or lemon juice","15ml sugar syrup","15ml egg white or aquafaba (optional, for foam)","Bitters to garnish"],
+    boozeM:"<b>Dry shake</b> (no ice) to foam, then shake again with ice. Strain over fresh ice. Dot bitters on the foam.",
+    free:["50ml 0% tequila / agave alternative (or skip)","25ml lime juice","15ml agave or sugar syrup","15ml aquafaba (chickpea water) for foam","Bitters to garnish"],
+    freeM:"Same <b>double shake</b>. Aquafaba gives the same silky foam with zero alcohol." },
+
+  { id:"hugo", ic:"🌼", name:"Hugo Spritz", glass:"Large wine glass, lots of ice", af:true,
+    booze:["75ml Prosecco","25ml elderflower liqueur or cordial","Soda splash","Mint + lime","Lots of ice"],
+    boozeM:"Fill a big glass with ice. Add elderflower, <b>top</b> with Prosecco, splash of soda. Mint sprig & lime wheel. Light & floral.",
+    free:["75ml 0% sparkling","25ml elderflower cordial","Soda splash","Mint + lime","Lots of ice"],
+    freeM:"Identical build with 0% fizz. One of the best alcohol-free drinks there is — barely a difference." },
+
+  { id:"shirley", ic:"🍒", name:"Shirley Temple", glass:"Highball, cubed ice", af:true,
+    booze:["15ml grenadine","Lemonade / ginger ale to fill","Maraschino cherries","Lime wedge","(Make it a 'Dirty Shirley' with 40ml vodka)"],
+    boozeM:"<b>Build</b> over ice: grenadine first, <b>top up</b> with lemonade or ginger ale. Don't stir — let it ombré. Cherries on a stick.",
+    free:["15ml grenadine","Lemonade / ginger ale to fill","Maraschino cherries","Lime wedge"],
+    freeM:"The classic is already alcohol-free — the crowd favourite for kids and drivers. <b>Build</b>, don't stir, pile on the cherries." },
+
+  { id:"negroni", ic:"🍊", name:"Negroni", glass:"Rocks, one big cube", af:true,
+    booze:["30ml gin","30ml Campari","30ml sweet vermouth","Orange peel"],
+    boozeM:"<b>Stir</b> equal parts with ice until cold. Strain over a big cube. Twist orange peel over the top. Bittersweet and grown-up.",
+    free:["30ml 0% gin","30ml non-alc bitter aperitif (e.g. Crodino / Martini Vibrante)","30ml 0% sweet vermouth","Orange peel"],
+    freeM:"Same equal-parts <b>stir</b>. The 0% bitter aperitifs nail the Negroni bite remarkably well." },
+
+  { id:"mule", ic:"🫚", name:"Moscow Mule", glass:"Mug or highball, cubed ice", af:true,
+    booze:["50ml vodka","15ml lime juice","Ginger beer to top","Lime wedge + mint"],
+    boozeM:"<b>Build</b> over ice: vodka, lime, <b>top up</b> with ginger beer. Stir once. Lime wedge. Best in a copper mug if you have one.",
+    free:["50ml 0% vodka (or skip)","15ml lime juice","Ginger beer to top","Lime wedge + mint"],
+    freeM:"Build the same way — honestly brilliant with just lime & a good spicy ginger beer." },
+];
+
+/* Shopping list — sized ~8 guests, half classic / half 0% */
+const SHOP = [
+  { cat:"Fizz (the welcome)", ic:"🍾", sub:"For arrival toasts", items:[
+    {t:"Prosecco", q:"2 bottles"},
+    {t:"Alcohol-free sparkling (Nozeco / Freixenet 0%)", q:"2 bottles", af:true},
+  ]},
+  { cat:"Spirits", ic:"🥃", sub:"Menu needs one of each — buy small (35–50cl) for 8", items:[
+    {t:"Vodka", q:"50cl"},
+    {t:"Vanilla vodka (Pornstar)", q:"35cl or small"},
+    {t:"White rum", q:"35–50cl"},
+    {t:"Gin", q:"35–50cl"},
+    {t:"Tequila (blanco)", q:"35–50cl"},
+    {t:"Bourbon / rye whiskey", q:"35cl"},
+    {t:"Campari", q:"small"},
+    {t:"Sweet (red) vermouth", q:"small"},
+    {t:"Triple sec / Cointreau", q:"small"},
+    {t:"Peach schnapps", q:"small"},
+    {t:"Passionfruit liqueur (Passoã)", q:"small"},
+    {t:"Elderflower liqueur or cordial", q:"1"},
+    {t:"Angostura bitters", q:"1 small"},
+  ]},
+  { cat:"Alcohol-free spirits", ic:"🌱", sub:"Half the crowd — get a proper 0% range", af:true, items:[
+    {t:"0% gin (e.g. Tanqueray 0.0 / Seedlip)", q:"1", af:true},
+    {t:"0% white rum / spiced alt", q:"1", af:true},
+    {t:"0% whiskey alternative", q:"1 (optional)", af:true},
+    {t:"Non-alc bitter aperitif (Crodino / Martini Vibrante)", q:"1", af:true},
+    {t:"0% sweet vermouth (Martini Vibrante)", q:"1", af:true},
+    {t:"Alcohol-free bitters (optional)", q:"1", af:true},
+  ]},
+  { cat:"Mixers & fizz", ic:"🫧", sub:"Keep cold", items:[
+    {t:"Soda water", q:"3 bottles"},
+    {t:"Ginger beer (spicy)", q:"4 bottles / 8 cans"},
+    {t:"Cola", q:"1 bottle"},
+    {t:"Lemonade", q:"2 bottles"},
+    {t:"Ginger ale", q:"1 bottle"},
+    {t:"Tonic water", q:"1 bottle"},
+  ]},
+  { cat:"Juices & purées", ic:"🧃", sub:"Chilled", items:[
+    {t:"Orange juice", q:"1.5L"},
+    {t:"Cranberry juice", q:"1.5L"},
+    {t:"Pineapple juice", q:"1L"},
+    {t:"Passionfruit purée (or 5 fresh passionfruit)", q:"1 tub"},
+    {t:"Peach nectar / syrup (for 0% SOTB)", q:"1", af:true},
+    {t:"Grenadine", q:"1 bottle"},
+    {t:"Cold black tea (for 0% Long Island)", q:"brew a jug", af:true},
+  ]},
+  { cat:"Fresh & garnish", ic:"🍋", sub:"Prep the day of", items:[
+    {t:"Limes", q:"10"},
+    {t:"Lemons", q:"5"},
+    {t:"Oranges", q:"3"},
+    {t:"Fresh mint", q:"2 big bunches"},
+    {t:"Passionfruit (to float)", q:"4"},
+    {t:"Maraschino cherries", q:"1 jar"},
+    {t:"Berries (raspberries for fizz)", q:"1 punnet"},
+  ]},
+  { cat:"Store cupboard", ic:"🧁", sub:"Sweet & sour kit", items:[
+    {t:"Caster sugar (for sugar syrup)", q:"1 bag"},
+    {t:"Agave syrup", q:"1"},
+    {t:"Vanilla syrup (or vanilla + sugar)", q:"1"},
+    {t:"Aquafaba (tin of chickpeas) or egg whites", q:"1"},
+  ]},
+  { cat:"Kit & extras", ic:"🧊", sub:"Don't forget!", items:[
+    {t:"ICE — bags of cubes", q:"~8kg (1kg pp)"},
+    {t:"Cocktail shaker (or a big jam jar)", q:"1–2"},
+    {t:"Jigger / 25ml measure", q:"1"},
+    {t:"Muddler (or wooden spoon)", q:"1"},
+    {t:"Strainer", q:"1"},
+    {t:"Big jugs for batching", q:"2–3"},
+    {t:"Glasses: highball, rocks, flute, coupe", q:"check numbers"},
+    {t:"Cocktail sticks + paper straws", q:"1 pack each"},
+    {t:"Napkins + a 0% bottles sign", q:"✎"},
+  ]},
+];
+
+/* ---------------- RENDER ---------------- */
+const menuGrid = document.getElementById('menuGrid');
+menuGrid.innerHTML = RECIPES.map(r => `
+  <a href="#r-${r.id}">
+    <div class="menu-item">
+      <span class="ic">${r.ic}</span>
+      <span>
+        <span class="nm">${r.name}</span>
+        <div class="ds">${r.glass}</div>
+        ${r.af ? '<span class="af">0% option</span>' : ''}
+      </span>
+    </div>
+  </a>`).join('');
+
+const recipeList = document.getElementById('recipeList');
+recipeList.innerHTML = RECIPES.map(r => `
+  <article class="recipe" id="r-${r.id}">
+    <div class="recipe-top"><span class="ic">${r.ic}</span><h3>${r.name}</h3></div>
+    <div class="glassline">${r.glass}</div>
+    <div class="cols">
+      <div class="col">
+        <div class="col-head booze"><span class="dot booze"></span>Classic</div>
+        <ul class="ing">${r.booze.map(i=>`<li>${i}</li>`).join('')}</ul>
+        <p class="method">${r.boozeM}</p>
+      </div>
+      <div class="col">
+        <div class="col-head free"><span class="dot free"></span>Alcohol-free</div>
+        <ul class="ing">${r.free.map(i=>`<li>${i}</li>`).join('')}</ul>
+        <p class="method">${r.freeM}</p>
+      </div>
+    </div>
+  </article>`).join('');
+
+/* Shopping list with persisted ticks */
+let checked = {};
+try { checked = JSON.parse(localStorage.getItem('party-checks') || '{}'); } catch(e) {}
+const saveChecks = () => { try { localStorage.setItem('party-checks', JSON.stringify(checked)); } catch(e) {} };
+
+const shopGrid = document.getElementById('shopGrid');
+function renderShop() {
+  shopGrid.innerHTML = SHOP.map((c, ci) => `
+    <div class="shop-cat">
+      <h3>${c.ic} ${c.cat}</h3>
+      <div class="sub">${c.sub}</div>
+      <ul>
+        ${c.items.map((it, ii) => {
+          const key = ci+'-'+ii; const on = checked[key];
+          return `<li class="${on?'done':''}" data-key="${key}">
+            <span class="chk ${on?'on':''}" role="checkbox" aria-checked="${on?'true':'false'}" tabindex="0"></span>
+            <span class="txt">${it.t} ${it.q?`<span class="qty">— ${it.q}</span>`:''} ${it.af?'<span class="afnote">· 0%</span>':''}</span>
+          </li>`;
+        }).join('')}
+      </ul>
+    </div>`).join('');
+}
+renderShop();
+
+shopGrid.addEventListener('click', e => {
+  const li = e.target.closest('li[data-key]'); if (!li) return;
+  const key = li.dataset.key; checked[key] = !checked[key]; saveChecks(); renderShop();
+});
+shopGrid.addEventListener('keydown', e => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const chk = e.target.closest('.chk'); if (!chk) return;
+  e.preventDefault();
+  const li = chk.closest('li[data-key]'); const key = li.dataset.key;
+  checked[key] = !checked[key]; saveChecks(); renderShop();
+});
+document.getElementById('resetChk').addEventListener('click', () => { checked = {}; saveChecks(); renderShop(); });
+</script>
+</body>
+</html>
